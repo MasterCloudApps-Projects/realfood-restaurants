@@ -1,0 +1,29 @@
+version: "3"
+services:
+  sqldb:
+    image: postgres
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=realfood-restaurants
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./docker/postgres:/var/lib/postgresql/data
+  nosqldb:
+    image: mongo
+    volumes:
+      - ./docker/mongo:/data/db/
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+      MONGO_INITDB_DATABASE: realfood-restaurants
+    ports:
+      - "27017:27017"
+  broker:
+    image: rabbitmq:3-management-alpine
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - ./docker/rabbitmq/data/:/var/lib/rabbitmq/
