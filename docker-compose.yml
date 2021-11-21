@@ -3,17 +3,17 @@ services:
   sqldb:
     image: postgres
     environment:
-      - POSTGRES_USER=root
-      - POSTGRES_PASSWORD=root
-      - POSTGRES_DB=realfood-restaurants
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: realfood-restaurants
     ports:
       - "5432:5432"
     volumes:
-      - ./docker/postgres:/var/lib/postgresql/data
+      - ./.docker/postgres:/var/lib/postgresql/data
   nosqldb:
     image: mongo
     volumes:
-      - ./docker/mongo:/data/db/
+      - ./.docker/mongo:/data/db/
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: root
@@ -26,4 +26,4 @@ services:
       - "5672:5672"
       - "15672:15672"
     volumes:
-      - ./docker/rabbitmq/data/:/var/lib/rabbitmq/
+      - ./.docker/rabbitmq/data/:/var/lib/rabbitmq/
