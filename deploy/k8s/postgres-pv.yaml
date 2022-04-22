@@ -1,0 +1,12 @@
+kind: PersistentVolume
+apiVersion: v1
+metadata:
+  name: realfood-restaurants-postgres-pv
+spec:
+  storageClassName: realfood-restaurants-postgres-sc
+  accessModes:
+    - ReadWriteOnce
+  capacity:
+    storage: 1Gi
+  hostPath:
+    path: /realfood-restaurants-postgres-data

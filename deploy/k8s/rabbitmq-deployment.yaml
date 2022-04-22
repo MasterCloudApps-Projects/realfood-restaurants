@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: realfood-rabbitmq
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: realfood-rabbitmq
+  template:
+    metadata:
+      labels:
+        app: realfood-rabbitmq
+    spec:
+      containers:
+      - env:
+        - name: RABBITMQ_DEFAULT_PASS
+          value: guest
+        - name: RABBITMQ_DEFAULT_USER
+          value: guest
+        image: rabbitmq:3.8.14-management-alpine
+        imagePullPolicy: IfNotPresent
+        name: realfood-rabbitmq
+        ports:
+        - containerPort: 5672
+        - containerPort: 15672
+      restartPolicy: Always
+      volumes:
+        - name: realfood-rabbitmq-persistent-storage
+          persistentVolumeClaim:
+            claimName: realfood-rabbitmq-pv-claim

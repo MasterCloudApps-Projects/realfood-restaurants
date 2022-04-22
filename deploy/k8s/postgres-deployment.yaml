@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: realfood-restaurants-postgres
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: realfood-restaurants-postgres
+  template:
+    metadata:
+      labels:
+        app: realfood-restaurants-postgres
+    spec:
+      containers:
+        - env:
+            - name: POSTGRES_DB
+              value: realfood-restaurants
+            - name: POSTGRES_PASSWORD
+              value: root
+            - name: POSTGRES_USER
+              value: root
+          image: postgres
+          imagePullPolicy: IfNotPresent
+          name: realfood-restaurants-postgres
+          ports:
+            - containerPort: 5432
+      restartPolicy: Always
+      volumes:
+        - name: realfood-restaurants-postgres-persistent-storage
+          persistentVolumeClaim:
+            claimName: realfood-restaurants-postgres-pv-claim

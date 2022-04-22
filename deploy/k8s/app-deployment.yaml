@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: realfood-restaurants-app
+spec:
+  selector:
+    matchLabels:
+      app: realfood-restaurants-app
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: clients
+    spec:
+      containers:
+        - env:
+            - name: DB_HOST
+              value: realfood-restaurants-postgres
+            - name: DB_USER
+              value: root
+            - name: DB_PASS
+              value: root
+            - name: RABBITMQ_HOST
+              value: localhost
+            - name: RABBITMQ_PORT
+              value: "5672"
+            - name: RABBITMQ_USERNAME
+              value: "guest"
+            - name: RABBITMQ_PASSWORD
+              value: "guest"
+            - name: JWT_SECRET
+              value: "a2ffb28f-23ec-4939-b2b3-c966de6a751d"
+          image: cloudappsteam/es.urjc.realfood.restaurants:1.0.0
+          imagePullPolicy: IfNotPresent
+          name: realfood-restaurants-app
+          ports:
+            - containerPort: 8080
+      restartPolicy: Always
