@@ -1,0 +1,12 @@
+@startuml
+top to bottom direction
+
+interface domain.RestaurantRepository
+application.createrestaurant.CreateRestaurant ..> application.createrestaurant.CreateRestaurantRequest
+application.createrestaurant.CreateRestaurant ..> application.createrestaurant.CreateRestaurantResponse
+application.createrestaurant.CreateRestaurant --> domain.RestaurantRepository
+application.createrestaurant.CreateRestaurant --> domain.Restaurant
+infrastructure.data.PostgresRestaurantRepository ..|> domain.RestaurantRepository
+infrastructure.data.PostgresRestaurantRepository --> infrastructure.data.JpaRestaurantRepository
+
+@enduml
