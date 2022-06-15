@@ -7,5 +7,5 @@ import org.springframework.data.mongodb.core.mapping.Document
 data class MongoMenu(
     @Id val id: String,
     val restaurantId: String,
-    val blocks: List<MongoMenuBlock>
+    val items: List<MongoMenuItem>
 )

@@ -10,7 +10,7 @@ spec:
   template:
     metadata:
       labels:
-        app: clients
+        app: realfood-restaurants
     spec:
       containers:
         - env:

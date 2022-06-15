@@ -1,11 +1,9 @@
 package es.urjc.realfood.restaurants.infrastructure.api.controllers
 
-import es.urjc.realfood.restaurants.application.orders.GetOrderDetail
-import es.urjc.realfood.restaurants.application.orders.GetOrderDetailRequest
-import es.urjc.realfood.restaurants.application.orders.GetOrderDetailResponse
-import es.urjc.realfood.restaurants.application.restaurants.GetRestaurants
-import es.urjc.realfood.restaurants.application.restaurants.GetRestaurantsRequest
-import es.urjc.realfood.restaurants.application.restaurants.GetRestaurantsResponse
+import es.urjc.realfood.restaurants.application.getorderdetail.GetOrderDetail
+import es.urjc.realfood.restaurants.application.getorderdetail.GetOrderDetailRequest
+import es.urjc.realfood.restaurants.application.getorderdetail.GetOrderDetailResponse
+import es.urjc.realfood.restaurants.application.getrestaurants.GetRestaurantsRequest
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestBody
@@ -19,5 +17,3 @@ class GetOrderDetailController(private val getOrderDetail: GetOrderDetail) {
         getOrderDetail(GetOrderDetailRequest(id = orderId))
 
 }
-
-// Delivery servicelinkedin tlinkedin 

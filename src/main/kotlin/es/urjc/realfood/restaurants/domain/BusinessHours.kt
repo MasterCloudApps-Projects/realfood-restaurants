@@ -1,5 +1,5 @@
 package es.urjc.realfood.restaurants.domain
 
-class BusinessHours(
+data class BusinessHours(
     val hours : List<BusinessHour>
 )

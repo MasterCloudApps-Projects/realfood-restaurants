@@ -2,17 +2,25 @@ package es.urjc.realfood.restaurants.domain.menu
 
 class Menu(
     val id: String,
-    val blocks: List<MenuBlock>,
+    items: List<MenuItem>,
 ) {
+
+    private val items: MutableList<MenuItem> = items.toMutableList()
     fun findItem(itemId: String): MenuItem? {
-        return blocks
-            .map { it.items }
-            .asSequence()
-            .flatten()
+        return items
             .find { it.id == itemId }
     }
 
-    fun getBlock(blockId: String): MenuBlock {
-        return blocks.first { it.id == blockId }
+    fun removeItem(menuItemId: String) {
+        items
+            .removeIf { it.id == menuItemId }
+    }
+
+    fun items(): List<MenuItem> {
+        return items.toList()
+    }
+
+    fun addItem(menuItem: MenuItem) {
+        items.add(menuItem)
     }
 }

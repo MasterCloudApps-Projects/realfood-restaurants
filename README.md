@@ -25,9 +25,9 @@ Operaciones disponibles en el servicio:
         - GET       /api/restaurants/                                       Ver restaurantes
 
     Operaciones disponibles sin iniciar sesión (perfil de restaurante)
-        - GET       /api/orders/{orderId}                                   Ver carta del restaurante
-        - POST      /api/restaurants/{restaurantId}/menu/items              Ver carta del restaurante
-        - DELETE    /api/restaurants/{restaurantId}/menu/items/{itemId}     Ver carta del restaurante
+        - GET       /api/orders/{orderId}                                   Ver detalle de un pedido
+        - POST      /api/restaurants/{restaurantId}/menu/items              Añadir un item a la carta
+        - DELETE    /api/restaurants/{restaurantId}/menu/items/{itemId}     Eliminar un item de la carta
         - PATCH     /api/orders/{orderId}                                   Actualizar estado del pedido
         - DELETE    /api/restaurants/{restaurantId}                         Dar de baja restaurante
         - PATCH     /api/restaurants/{restaurantId}                         Actualizar datos de un restaurante
@@ -36,6 +36,7 @@ Operaciones disponibles en el servicio:
 Operaciones de Publicación/Suscripción que ejecuta el servicio:
 
         - [Consume] Shipment order update                  Actualización del estado de envío de un pedido
+        - [Consume] Status order update                    Actualización del estado de un pedido
 
 Diagrama de clases del dominio de la aplicación:
 

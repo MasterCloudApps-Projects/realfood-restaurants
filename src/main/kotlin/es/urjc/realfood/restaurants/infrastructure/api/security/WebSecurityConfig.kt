@@ -1,6 +1,5 @@
 package es.urjc.realfood.restaurants.infrastructure.api.security
 
-import es.urjc.realfood.restaurants.api.security.SpringUserService
 import es.urjc.realfood.restaurants.api.security.filters.JWTAuthenticationFilter
 import es.urjc.realfood.restaurants.api.security.filters.JWTAuthorizationFilter
 import org.springframework.beans.factory.annotation.Value
@@ -39,6 +38,8 @@ class WebSecurityConfig(
             .antMatchers("/swagger-ui/**").permitAll()
             .antMatchers("/actuator/health").permitAll()
             .antMatchers("/**").permitAll()
+            .antMatchers("/api/orders/**").permitAll()
+            .antMatchers("/api/restaurants/**").permitAll()
             .anyRequest().authenticated().and()
             .addFilter(JWTAuthenticationFilter(authenticationManager(), tokenSecret))
             .addFilter(JWTAuthorizationFilter(authenticationManager(), tokenSecret))

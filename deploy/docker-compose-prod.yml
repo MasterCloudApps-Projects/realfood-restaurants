@@ -2,7 +2,7 @@ version: "3"
 services:
   realfood-restaurants-app:
     container_name: realfood-restaurants-app
-    image: cloudappsteam/es.urjc.realfood.restaurants:0.0.1
+    image: cloudappsteam/es.urjc.realfood.restaurants:1.0.0
     environment:
       - DATABASE_HOST=realfood-restaurants-postgres
       - DATABASE_PORT=5432
@@ -29,3 +29,13 @@ services:
     expose:
       - "5672"
       - "15672"
+  realfood-restaurants-mongo:
+    image: mongo
+    volumes:
+      - ./.docker/mongo:/data/db/
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+      MONGO_INITDB_DATABASE: realfood-restaurants
+    ports:
+      - "27017:27017"

@@ -17,3 +17,13 @@ services:
       - "15672:15672"
     volumes:
       - ./.docker/rabbitmq/data/:/var/lib/rabbitmq/
+  mongo:
+    image: mongo
+    volumes:
+      - ./.docker/mongo:/data/db/
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: root
+      MONGO_INITDB_DATABASE: realfood-restaurants
+    ports:
+      - "27017:27017"

@@ -1,5 +1,3 @@
-@file:Suppress("JpaAttributeMemberSignatureInspection")
-
 package es.urjc.realfood.restaurants.domain
 
 data class Address(

@@ -1,8 +1,8 @@
 package es.urjc.realfood.restaurants.infrastructure.api.controllers
 
-import es.urjc.realfood.restaurants.application.restaurants.GetRestaurants
-import es.urjc.realfood.restaurants.application.restaurants.GetRestaurantsRequest
-import es.urjc.realfood.restaurants.application.restaurants.GetRestaurantsResponse
+import es.urjc.realfood.restaurants.application.getrestaurants.GetRestaurants
+import es.urjc.realfood.restaurants.application.getrestaurants.GetRestaurantsRequest
+import es.urjc.realfood.restaurants.application.getrestaurants.GetRestaurantsResponse
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RestController
