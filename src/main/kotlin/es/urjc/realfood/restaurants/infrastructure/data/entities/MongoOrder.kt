@@ -9,7 +9,7 @@ import java.util.*
 data class MongoOrder(
     @Id val id: String,
     val restaurantId: String,
-    val status: String,
+    val status: Int,
     val lines: List<MongoOrderLine>,
     val total: Int,
     val customerId: String,
@@ -20,9 +20,6 @@ data class MongoOrderLine(
     val itemId: String,
     val qty: Int,
     val price: Int,
-    val variant: String?,
-    val extras: List<MongoOrderLineExtra>,
-    val components: List<String>,
 )
 
 data class MongoOrderLineExtra(

@@ -18,13 +18,11 @@ class DatabaseOrderRepository(
     override fun add(order: Order) {
         mongoOrderRepository.save(MongoOrder(
             id = order.id,
-            status = order.status,
+            status = order.status().id,
             lines = order.lines.map {
-                MongoOrderLine(itemId = it.itemId,
+                MongoOrderLine(
+                    itemId = it.itemId,
                     qty = it.qty,
-                    variant = it.variant,
-                    extras = map(it.extras),
-                    components = it.components,
                     price = it.price
                 )
             },
@@ -56,18 +54,10 @@ class DatabaseOrderRepository(
         return lines.map {
             OrderLine(
                 itemId = it.itemId,
-                variant = it.variant,
                 price = it.price,
                 qty = it.qty,
-                components = it.components,
-                extras = it.extras.map { OrderLineExtra(name = it.name, price = it.price) }
             )
         }
     }
-
-    private fun map(extras: List<OrderLineExtra>): List<MongoOrderLineExtra> {
-        return extras.map { MongoOrderLineExtra(name = it.name, price = it.price) }
-    }
-
 
 }

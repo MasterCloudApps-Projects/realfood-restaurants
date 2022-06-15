@@ -8,8 +8,4 @@ data class MongoMenuItem(
     val restaurantId: String,
     val name: String,
     val price: Int,
-    val items: List<MongoMenuItem>,
-    val extras: List<MongoMenuExtra>,
-    val components: List<MongoMenuComponent>,
-    val variants: List<MongoMenuVariant>,
 )

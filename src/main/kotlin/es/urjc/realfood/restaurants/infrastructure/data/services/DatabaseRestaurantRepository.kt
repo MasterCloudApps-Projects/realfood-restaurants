@@ -22,22 +22,36 @@ class DatabaseRestaurantRepository(
         .findAndRegisterModules()
 
     override fun save(restaurant: Restaurant) {
-        jpaRestaurantRepository.save(JpaRestaurant(
-            id = restaurant.id,
-            name = restaurant.name,
-            streetName = restaurant.address.streetName,
-            number = restaurant.address.number,
-            city = restaurant.address.city,
-            zipCode = restaurant.address.zipCode,
-            additional = restaurant.address.additional,
-            businessHours = toJson(restaurant.businessHours),
-            categoryId = restaurant.category().id
-        ))
-        mongoMenuRepository.save(MongoMenu(
-            id = restaurant.menu.id,
-            restaurantId = restaurant.id,
-            blocks = mapBlocks(restaurant.menu.blocks, restaurantId = restaurant.id)
-        ))
+        jpaRestaurantRepository.save(
+            JpaRestaurant(
+                id = restaurant.id,
+                name = restaurant.name,
+                streetName = restaurant.address.streetName,
+                number = restaurant.address.number,
+                city = restaurant.address.city,
+                zipCode = restaurant.address.zipCode,
+                additional = restaurant.address.additional,
+                businessHours = toJson(restaurant.businessHours),
+                categoryId = restaurant.category().id
+            )
+        )
+
+        val menuItems = map(items = restaurant.menu.items(), restaurantId = restaurant.id).also {
+            mongoMenuItemRegistryRepository.saveAll(it.map {
+                MongoMenuItemRestaurant(
+                    it.id,
+                    it.restaurantId
+                )
+            })
+        }
+
+        mongoMenuRepository.save(
+            MongoMenu(
+                id = restaurant.menu.id,
+                restaurantId = restaurant.id,
+                items = menuItems
+            )
+        )
     }
 
     override fun toList(): List<Restaurant> {
@@ -66,40 +80,20 @@ class DatabaseRestaurantRepository(
     private fun fromJson(businessHours: String): BusinessHours =
         mapper.readValue(businessHours, BusinessHours::class.java)
 
-    private fun mapMongoBlocks(blocks: List<MongoMenuBlock>): List<MenuBlock> {
-        return blocks.map { MenuBlock(name = it.name, items = mapMongoItems(it.items), id = it.id) }
-    }
-
-    private fun mapMongoVariants(variants: List<MongoMenuVariant>): List<Variant> {
-        return variants.map {
-            Variant(name = it.name, id = it.id)
-        }
-    }
-
-    private fun mapMongoComponents(components: List<MongoMenuComponent>): List<Component> {
-        return components.map {
-            Component(id = it.id, name = it.name)
-        }
-    }
-
-    private fun mapMongoExtras(extras: List<MongoMenuExtra>): List<Extra> {
-        return extras.map {
-            Extra(id = it.id, name = it.name, price = it.price)
-        }
-    }
-
     private fun mapToDomain(restaurant: JpaRestaurant, mongoMenu: MongoMenu): Restaurant {
         return Restaurant(
             id = restaurant.id,
             name = restaurant.name,
-            address = Address(streetName = restaurant.streetName,
+            address = Address(
+                streetName = restaurant.streetName,
                 number = restaurant.number,
                 city = restaurant.city,
                 zipCode = restaurant.zipCode,
-                additional = restaurant.additional),
+                additional = restaurant.additional
+            ),
             businessHours = fromJson(restaurant.businessHours),
             category = Category.fromId(restaurant.categoryId)!!,
-            menu = mongoMenu.let { Menu(id = it.id, blocks = mapMongoBlocks(it.blocks)) }
+            menu = mongoMenu.let { Menu(id = it.id, items = mapMongoItems(it.items)) }
         )
     }
 
@@ -108,27 +102,7 @@ class DatabaseRestaurantRepository(
             MenuItem(
                 name = it.name,
                 price = it.price,
-                items = mapMongoItems(it.items),
                 id = it.id,
-                extras = mapMongoExtras(it.extras),
-                components = mapMongoComponents(it.components),
-                variants = mapMongoVariants(it.variants),
-            )
-        }
-    }
-
-    private fun mapBlocks(menu: List<MenuBlock>, restaurantId: String): List<MongoMenuBlock> {
-        return menu.map {
-            MongoMenuBlock(
-                id = it.id,
-                name = it.name,
-                items = map(it.items,
-                    restaurantId).also {
-                    mongoMenuItemRegistryRepository.saveAll(it.map {
-                        MongoMenuItemRestaurant(it.id,
-                            it.restaurantId)
-                    })
-                }
             )
         }
     }
@@ -139,33 +113,7 @@ class DatabaseRestaurantRepository(
                 id = it.id,
                 name = it.name,
                 price = it.price,
-                items = map(it.items ?: emptyList(), restaurantId),
-                extras = mapExtras(it.extras ?: emptyList()),
-                components = mapComponents(it.components ?: emptyList()),
-                variants = mapVariants(it.variants ?: emptyList()),
                 restaurantId = restaurantId
-            )
-        }
-    }
-
-    private fun mapVariants(variants: List<Variant>): List<MongoMenuVariant> {
-        return variants.map {
-            MongoMenuVariant(id = it.id, it.name)
-        }
-    }
-
-    private fun mapComponents(components: List<Component>): List<MongoMenuComponent> {
-        return components.map {
-            MongoMenuComponent(id = it.id, name = it.name)
-        }
-    }
-
-    private fun mapExtras(extras: List<Extra>): List<MongoMenuExtra> {
-        return extras.map {
-            MongoMenuExtra(
-                id = it.id,
-                price = it.price,
-                name = it.name
             )
         }
     }

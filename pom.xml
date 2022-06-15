@@ -11,7 +11,7 @@
   </parent>
   <groupId>es.urjc.realfood</groupId>
   <artifactId>restaurants</artifactId>
-  <version>0.0.1</version>
+  <version>1.0.0</version>
   <name>realfood-restaurants</name>
   <description>realfood-restaurants</description>
   <properties>
