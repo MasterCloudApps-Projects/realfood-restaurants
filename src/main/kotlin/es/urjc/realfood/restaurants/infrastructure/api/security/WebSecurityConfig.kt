@@ -19,7 +19,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource
 @Configuration
 @EnableWebSecurity
 class WebSecurityConfig(
-    @Value("\${jwt.token}") private val tokenSecret: String,
+    @Value("\${jwt.secret}") private val tokenSecret: String,
     private val userService: SpringUserService
 ) : WebSecurityConfigurerAdapter() {
 

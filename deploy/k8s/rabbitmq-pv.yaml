@@ -3,7 +3,7 @@ apiVersion: v1
 metadata:
   name: realfood-rabbitmq-pv
 spec:
-  storageClassName: realfood-rabbitmq-sc
+  storageClassName: "realfood-rabbitmq-sc"
   accessModes:
     - ReadWriteOnce
   capacity:

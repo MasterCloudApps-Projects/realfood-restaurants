@@ -10,27 +10,35 @@ spec:
   template:
     metadata:
       labels:
-        app: realfood-restaurants
+        app: realfood-restaurants-app
     spec:
       containers:
         - env:
             - name: DB_HOST
-              value: realfood-restaurants-postgres
+              value: "realfood-restaurants-postgres"
             - name: DB_USER
-              value: root
+              value: "root"
             - name: DB_PASS
-              value: root
+              value: "root"
             - name: RABBITMQ_HOST
-              value: localhost
+              value: "localhost"
             - name: RABBITMQ_PORT
               value: "5672"
             - name: RABBITMQ_USERNAME
               value: "guest"
             - name: RABBITMQ_PASSWORD
               value: "guest"
+            - name: MONGO_HOST
+              value: "realfood-restaurants-mongo"
+            - name: MONGO_PORT
+              value: "26172"
+            - name: MONGO_USER
+              value: "admin"
+            - name: MONGO_DB_NAME
+              value: "realfood-restaurants"
             - name: JWT_SECRET
               value: "a2ffb28f-23ec-4939-b2b3-c966de6a751d"
-          image: cloudappsteam/es.urjc.realfood.restaurants:1.0.0
+          image: cloudappsteam/es.urjc.realfood.restaurants:1.0.1
           imagePullPolicy: IfNotPresent
           name: realfood-restaurants-app
           ports:
