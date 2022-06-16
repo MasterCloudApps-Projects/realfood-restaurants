@@ -3,7 +3,7 @@ apiVersion: v1
 metadata:
   name: realfood-restaurants-postgres-pv
 spec:
-  storageClassName: realfood-restaurants-postgres-sc
+  storageClassName: "realfood-restaurants-postgres-sc"
   accessModes:
     - ReadWriteOnce
   capacity:

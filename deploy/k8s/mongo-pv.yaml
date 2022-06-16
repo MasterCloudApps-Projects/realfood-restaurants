@@ -1,9 +1,9 @@
 kind: PersistentVolume
 apiVersion: v1
 metadata:
-  name: realfood-restaurants-postgres-pv
+  name: realfood-restaurants-mongo-pv
 spec:
-  storageClassName: realfood-restaurants-postgres-sc
+  storageClassName: "realfood-restaurants-mongo-sc"
   accessModes:
     - ReadWriteOnce
   capacity:
