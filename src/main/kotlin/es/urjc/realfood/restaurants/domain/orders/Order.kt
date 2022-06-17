@@ -4,7 +4,7 @@ import java.time.Instant
 import java.util.*
 
 data class Order(
-    val id: String,
+    val id: String = UUID.randomUUID().toString(),
     val restaurantId: String,
     val lines: List<OrderLine>,
     val customer: Customer,
