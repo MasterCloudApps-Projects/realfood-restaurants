@@ -1,12 +1,13 @@
-package es.urjc.realfood.restaurants.api.security.filters
+package es.urjc.realfood.restaurants.infrastructure.api.security.filters
 
-import es.urjc.realfood.restaurants.api.security.TOKEN_BEARER_PREFIX
+import es.urjc.realfood.restaurants.infrastructure.api.security.TOKEN_BEARER_PREFIX
 import io.jsonwebtoken.Jwts
 import org.springframework.http.HttpHeaders.AUTHORIZATION
 import org.springframework.security.authentication.AuthenticationManager
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter
+import java.util.*
 import javax.servlet.FilterChain
 import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
@@ -34,7 +35,7 @@ class JWTAuthorizationFilter(
         val token = request.getHeader(AUTHORIZATION)
         if (token != null) {
             val user: String = Jwts.parser()
-                .setSigningKey(tokenSecret)
+                .setSigningKey(Base64.getEncoder().encodeToString(tokenSecret.encodeToByteArray()).toString())
                 .parseClaimsJws(token.replace(TOKEN_BEARER_PREFIX, ""))
                 .body
                 .subject

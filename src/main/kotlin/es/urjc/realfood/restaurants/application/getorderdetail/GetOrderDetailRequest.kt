@@ -1,3 +1,3 @@
 package es.urjc.realfood.restaurants.application.getorderdetail
 
-data class GetOrderDetailRequest(val id: String)
+data class GetOrderDetailRequest(val id: String, val clientId: String)

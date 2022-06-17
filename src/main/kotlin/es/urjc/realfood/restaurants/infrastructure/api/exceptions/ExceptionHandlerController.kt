@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler
 class ExceptionHandlerController {
 
     private val exceptionsMap = mapOf(
+        IllegalArgumentException::class.java to 400,
         CategoryNotFoundException::class.java to 404,
         ItemNotFoundException::class.java to 404,
         OrderNotFoundException::class.java to 404,

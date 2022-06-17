@@ -39,7 +39,7 @@ class DatabaseOrderRepository(
             Order(
                 id = it.id,
                 lines = mapLines(it.lines),
-                customer = Customer(it.id),
+                customer = Customer(it.customerId),
                 restaurantId = it.restaurantId
             )
         }

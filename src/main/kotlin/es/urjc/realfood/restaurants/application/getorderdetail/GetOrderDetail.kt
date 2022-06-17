@@ -14,6 +14,9 @@ class GetOrderDetail(private val orderRepository: OrderRepository) {
         val order = orderRepository.findById(req.id)
             ?: throw OrderNotFoundException("Order ${req.id} not found")
 
+        if(order.customer.id != req.clientId)
+            throw OrderNotFoundException("Order ${req.id} not found")
+
         return GetOrderDetailResponse(
             id = order.id,
             lines = order.lines.map { OrderLine(id = it.itemId, total = it.total()) },
