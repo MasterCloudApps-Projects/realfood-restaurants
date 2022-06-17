@@ -19,7 +19,7 @@ class RabbitMqEventPublisher(
 
     override fun publish(event: DomainEvent) {
         val msg: String = objectMapper.writeValueAsString(event)
-        rabbitTemplate.convertAndSend(queue, event::class.java.simpleName, msg)
+        rabbitTemplate.convertAndSend(queue, msg)
         LOGGER.info("[Publisher] Event sent to queue '{}': {}", queue, msg)
     }
 
