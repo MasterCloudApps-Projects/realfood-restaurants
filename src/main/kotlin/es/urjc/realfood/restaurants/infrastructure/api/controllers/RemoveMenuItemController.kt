@@ -15,11 +15,10 @@ class RemoveMenuItemController(private val removeMenuItem: RemoveMenuItem) {
     fun postRemoveMenuItem(
         @PathVariable restaurantId: String,
         @RequestBody menuItemRequest: AddMenuItemRequest, @PathVariable itemId: String,
-    ) =
-        removeMenuItem(
-            RemoveMenuItemRequest(
-                restaurantId = restaurantId,
-                menuItemId = itemId
-            )
+    ) = removeMenuItem(
+        RemoveMenuItemRequest(
+            restaurantId = restaurantId,
+            menuItemId = itemId
         )
+    )
 }

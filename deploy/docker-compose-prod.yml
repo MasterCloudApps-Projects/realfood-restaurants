@@ -2,7 +2,7 @@ version: "3"
 services:
   realfood-restaurants-app:
     container_name: realfood-restaurants-app
-    image: cloudappsteam/es.urjc.realfood.restaurants:1.0.1
+    image: cloudappsteam/es.urjc.realfood.restaurants:1.1.0
     environment:
       - DATABASE_HOST=realfood-restaurants-postgres
       - DATABASE_PORT=5432

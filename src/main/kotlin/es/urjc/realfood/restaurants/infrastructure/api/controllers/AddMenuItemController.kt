@@ -16,11 +16,9 @@ class AddMenuItemController(private val addMenuItem: AddMenuItem) {
     fun postAddMenuItem(
         @PathVariable restaurantId: String,
         @RequestBody menuItemRequest: MenuItem,
-    ): AddMenuItemResponse =
-        addMenuItem(
-            AddMenuItemRequest(
-            restaurantId = restaurantId,
-            menuItem = menuItemRequest
+    ): AddMenuItemResponse = addMenuItem(
+        AddMenuItemRequest(
+            restaurantId = restaurantId, menuItem = menuItemRequest
         )
-        )
+    )
 }
