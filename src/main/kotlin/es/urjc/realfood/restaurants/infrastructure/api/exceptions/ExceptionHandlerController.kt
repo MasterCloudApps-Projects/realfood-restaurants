@@ -16,7 +16,7 @@ class ExceptionHandlerController {
         CategoryNotFoundException::class.java to 404,
         ItemNotFoundException::class.java to 404,
         OrderNotFoundException::class.java to 404,
-        RestaurantNotFoundException::class.java to 404,
+        RestaurantNotFoundException::class.java to 404
     )
 
     @ExceptionHandler

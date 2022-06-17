@@ -5,10 +5,13 @@ import es.urjc.realfood.restaurants.domain.Address
 import es.urjc.realfood.restaurants.domain.BusinessHours
 import es.urjc.realfood.restaurants.domain.Category
 import es.urjc.realfood.restaurants.domain.Restaurant
-import es.urjc.realfood.restaurants.domain.menu.*
+import es.urjc.realfood.restaurants.domain.menu.Menu
+import es.urjc.realfood.restaurants.domain.menu.MenuItem
 import es.urjc.realfood.restaurants.domain.services.RestaurantRepository
-import es.urjc.realfood.restaurants.infrastructure.data.entities.*
-import es.urjc.realfood.restaurants.infrastructure.data.exception.DataAccessException
+import es.urjc.realfood.restaurants.infrastructure.data.entities.JpaRestaurant
+import es.urjc.realfood.restaurants.infrastructure.data.entities.MongoMenu
+import es.urjc.realfood.restaurants.infrastructure.data.entities.MongoMenuItem
+import es.urjc.realfood.restaurants.infrastructure.data.entities.MongoMenuItemRestaurant
 import org.springframework.stereotype.Repository
 
 @Repository
@@ -59,9 +62,9 @@ class DatabaseRestaurantRepository(
         return jpaRestaurantRepository.findAll().map { mapToDomain(it, restaurantMenus[it.id]!!.first()) }
     }
 
-    override fun findById(id: String): Restaurant {
+    override fun findById(id: String): Restaurant? {
         val jpaRestaurant =
-            jpaRestaurantRepository.findById(id).orElseThrow { DataAccessException("Restaurant '$id' not found") }
+            jpaRestaurantRepository.findById(id).orElse(null) ?: return null
         val mongoMenu = mongoMenuRepository.findMongoMenuByRestaurantId(id)
         return mapToDomain(jpaRestaurant, mongoMenu)
     }

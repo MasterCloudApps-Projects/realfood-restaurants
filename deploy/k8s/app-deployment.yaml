@@ -40,7 +40,7 @@ spec:
               value: "realfood-restaurants"
             - name: JWT_SECRET
               value: "a2ffb28f-23ec-4939-b2b3-c966de6a751d"
-          image: cloudappsteam/es.urjc.realfood.restaurants:1.2.1
+          image: cloudappsteam/es.urjc.realfood.restaurants:1.2.2
           imagePullPolicy: IfNotPresent
           name: realfood-restaurants-app
           ports:
